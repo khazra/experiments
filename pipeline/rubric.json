@@ -1,0 +1,381 @@
+{
+  "version": "1.0.0",
+  "dimensions": [
+    {
+      "id": "paid-gross-net-acceptance",
+      "question": "At the observation cutoff, what amounts were supported by distinct evidence of buyer or platform acceptance, customer payment, recorded fees or refunds, and net receipts?",
+      "measurement": "Create one row per claimed acceptance or payment. Count acceptance only when a buyer or platform explicitly accepted the work; a listing, proposal, submission, delivery acknowledgement, pending review, or quoted amount is not acceptance. Count paid gross only when a distinct payment or transfer record identifies both the payer and the work paid for. Record fees and refunds only when transaction evidence exists; describe their absence as 'no transactions recorded', not as proof that historical fees were zero. Calculate net receipts as evidenced paid gross minus evidenced fees and refunds. Report the USD 0 result as the ledger position at the cutoff and separately state that wallets were not refreshed at pause, so it is not a fresh all-wallet balance audit.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-FUNNEL-001",
+          "path": "SOURCE-025",
+          "locator": "JSON pointers /source_as_of_utc, /funds, /payments, /wallets"
+        },
+        {
+          "evidenceId": "E-FUNNEL-005",
+          "path": "SOURCE-028",
+          "locator": "lines 18-53"
+        },
+        {
+          "evidenceId": "E-FUNNEL-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-89"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with the independently evidenced acceptance, payment, fee, refund, and net-receipt records and the stated wallet-audit limitation. Judgement begins when a reviewer evaluates the commercial significance of those amounts or speculates that an unrefreshed wallet, an incoming transfer without payer-and-work provenance, a proposal, or a pending delivery was revenue."
+    },
+    {
+      "id": "time-to-cash-and-early-stop",
+      "question": "What observable time elapsed from each recorded first contact or submission to its recorded decision, last check, or the 2026-09-22T15:14:39Z pause, and what work remained unresolved when approximately 23h45m of the planned 120h remained?",
+      "measurement": "For every tracked item having both a start timestamp and a terminal decision or last-check timestamp, calculate the UTC interval and label it either exact, when a terminal event exists, or right-censored at the pause, when the item remained pending. Do not report a time-to-cash value because no payment event exists; report it as unobserved and right-censored beyond the pause. List every application, submission, proposal, or review still in flight at pause. Calculate elapsed and nominal remaining experiment time from the fixed launch, deadline, and pause timestamps. Record that the snapshot contains no observed post-pause customer outcome with which to price the early stop; do not assign a monetary cost or saving to the unobserved final interval.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-SCOPE-008",
+          "path": "SOURCE-008",
+          "locator": "JSON pointers /paused_at_utc, /elapsed_note, /root_service, /registered_orbs"
+        },
+        {
+          "evidenceId": "E-FUNNEL-004",
+          "path": "SOURCE-027",
+          "locator": "JSON pointers /entries/0 through /entries/38"
+        },
+        {
+          "evidenceId": "E-FUNNEL-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-89"
+        },
+        {
+          "evidenceId": "E-RUNTIME-020",
+          "path": "SOURCE-012",
+          "locator": "events#row-392"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with timestamp differences, censoring labels, the list of unresolved work, and the absence of an observed cash event or post-pause outcome. Judgement begins when a reviewer says the pause was prudent or premature, assigns conversion value to unresolved items, or claims the remaining interval would have produced or consumed a particular amount."
+    },
+    {
+      "id": "demand-validation",
+      "question": "For each effort-bearing opportunity, what buyer-side demand signal existed before material production began, and did that signal establish an agreed paid transaction rather than merely advertised or possible demand?",
+      "measurement": "For each tracked item, identify the strongest signal timestamped before material production and place it in exactly one category: explicit paid-scope agreement or acceptance; direct buyer invitation or substantive buyer reply without agreed paid scope; public listing or advertised reward only; agent-originated proposal or inquiry without a buyer reply; or no buyer-side signal. A listing establishes advertised demand, not demand for this agent's work. A direct invitation or reply establishes engagement, not payment. Paying demand for the selected work is established only by explicit agreed paid scope or acceptance. Count items in each category and separately record effort that began before the strongest signal.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-FUNNEL-002",
+          "path": "SOURCE-025",
+          "locator": "JSON pointers /work/0 through /work/29"
+        },
+        {
+          "evidenceId": "E-FUNNEL-003",
+          "path": "SOURCE-026",
+          "locator": "JSON pointers /hypotheses/0 through /hypotheses/55"
+        },
+        {
+          "evidenceId": "E-DROP-003",
+          "path": "SOURCE-025",
+          "locator": "JSON pointer /work/2"
+        },
+        {
+          "evidenceId": "E-FUNNEL-005",
+          "path": "SOURCE-028",
+          "locator": "lines 18-53"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with the dated signal category for each item and whether effort preceded that signal. Judgement begins when a reviewer decides whether advertised demand, an invitation, or a reply was strategically sufficient to justify effort despite falling short of an agreed paid transaction."
+    },
+    {
+      "id": "execution-quality",
+      "question": "For each opportunity that reached production or submission, what objective conformance, independent-check, turnaround, platform-verifier, and buyer-feedback evidence exists?",
+      "measurement": "Create one row per produced or submitted deliverable. Record claim or production start, submission or delivery time, elapsed turnaround where both timestamps exist, stated acceptance criteria, locally demonstrated checks, independent critic results, platform-verifier results, buyer disposition, and the exact stated decline reason. Classify the observed outcome as accepted, buyer-declined, platform-error, pending review, or locally completed without buyer review. Keep technical correctness, editorial suitability, and platform reliability separate. A local check or critic result is not buyer acceptance, and a platform error is not a buyer quality judgement.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-RUNTIME-002",
+          "path": "SOURCE-012",
+          "locator": "events#row-394, events#row-340, events#row-1916, events#row-1526, events#row-1084"
+        },
+        {
+          "evidenceId": "E-RUNTIME-003",
+          "path": "SOURCE-012",
+          "locator": "events#row-66, events#row-987, events#row-744"
+        },
+        {
+          "evidenceId": "E-RUNTIME-011",
+          "path": "SOURCE-012",
+          "locator": "events#row-1903, events#row-2000, events#row-1178, events#row-1289, events#row-270"
+        },
+        {
+          "evidenceId": "E-RUNTIME-012",
+          "path": "SOURCE-020",
+          "locator": "lines 7-30"
+        },
+        {
+          "evidenceId": "E-RUNTIME-014",
+          "path": "SOURCE-012",
+          "locator": "events#row-478, events#row-1369"
+        },
+        {
+          "evidenceId": "E-DROP-003",
+          "path": "SOURCE-025",
+          "locator": "JSON pointer /work/2"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with recorded turnaround, test results, verifier behavior, buyer disposition, and verbatim categorized reasons. Judgement begins when a reviewer decides whether the demonstrated quality or turnaround was competitive, whether editorial distinctiveness should outweigh technical correctness, or how much an unmeasured quality attribute mattered."
+    },
+    {
+      "id": "external-delays",
+      "question": "Which tracked items were waiting on an external party or platform at the pause, for how long had each been waiting, and what explicit cause was recorded?",
+      "measurement": "For every pending-queue entry, record its related work ID, first evidenced submission or contact time, last successful check, status at pause, and explicit wait cause. Calculate an item-level right-censored wait through the pause only when the final successful check confirms that the state persisted. Categorize causes as buyer no reply, buyer or platform review, eligibility clarification, moderation hold, payment-timing hold, or inaccessible final channel, using only explicit source wording. Do not add overlapping waits together or divide their sum by 96h15m; concurrent waits are not mutually exclusive shares of experiment time. Keep runtime and verifier failures under reliability rather than external delay.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-FUNNEL-004",
+          "path": "SOURCE-027",
+          "locator": "JSON pointers /entries/0 through /entries/38"
+        },
+        {
+          "evidenceId": "E-FUNNEL-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-89"
+        },
+        {
+          "evidenceId": "E-RUNTIME-005",
+          "path": "SOURCE-012",
+          "locator": "events#row-594, events#row-1066, events#row-1472"
+        },
+        {
+          "evidenceId": "E-RUNTIME-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-1419, events#row-427, events#row-794"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with item-level wait intervals, right-censoring, and source-stated causes. Judgement begins when a reviewer assigns blame, treats overlapping waits as additive lost experiment time, decides that the agent should have waited longer, or estimates the commercial value of eliminating a delay."
+    },
+    {
+      "id": "reputation-kyc-payment-friction",
+      "question": "How many tracked records explicitly identify identity, account reputation, KYC, AI-identity eligibility, payout method, or settlement timing as a confirmed incompatibility or an unresolved blocker?",
+      "measurement": "Inspect the work, hypothesis, and pending-response records and count each record once in one of two buckets: confirmed incompatibility, when the source explicitly states that a requirement or timing rule excluded the route; or unresolved friction, when eligibility, verification, reputation, payout method, or settlement remained unanswered. Report counts by friction type and list the affected record IDs. Do not infer reputation or KYC friction from silence, a generic rejection, HTTP failure, or an unknown counterparty domain. Do not calculate a funnel-loss percentage because unique opportunities and a fully classified funnel denominator are unavailable.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-FUNNEL-003",
+          "path": "SOURCE-026",
+          "locator": "JSON pointers /hypotheses/0 through /hypotheses/55"
+        },
+        {
+          "evidenceId": "E-FUNNEL-004",
+          "path": "SOURCE-027",
+          "locator": "JSON pointers /entries/0 through /entries/38"
+        },
+        {
+          "evidenceId": "E-RUNTIME-019",
+          "path": "SOURCE-012",
+          "locator": "events#row-212, events#row-1981, events#row-264, events#row-89"
+        },
+        {
+          "evidenceId": "E-SCOPE-003",
+          "path": "SOURCE-003",
+          "locator": "lines 3-17"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with explicitly attributed confirmed and unresolved friction records. Judgement begins when a reviewer assesses materiality, assumes an unresolved requirement would have caused rejection, or estimates how many additional conversions different identity, reputation, or payment rails would have produced."
+    },
+    {
+      "id": "constraints-and-operator-changes",
+      "question": "What operator-imposed constraints and policy changes are textually evidenced, when did each become effective, and what observable behavior followed each change?",
+      "measurement": "Build a version ledger with the preserved mission text, exact added or removed directives, the event timestamp at which the change was authorized or completed, its stated effective timestamp, and the first subsequent behavior evidenced under it. Use four change points: reinvestment steering, the activity/discovery adjustment, policy v2, and policy v2.1. Mark the reinvestment byte diff unavailable because no pre-change maintenance copy survives. Keep the policy text, effective time, and later behavior as separate columns; temporal sequence does not establish that the policy caused the commercial outcome.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-MISSION-001",
+          "path": "SOURCE-011",
+          "locator": "lines 1-29"
+        },
+        {
+          "evidenceId": "E-MISSION-002",
+          "path": "SOURCE-012",
+          "locator": "events#row-1641"
+        },
+        {
+          "evidenceId": "E-MISSION-003",
+          "path": "SOURCE-013",
+          "locator": "lines 30-41"
+        },
+        {
+          "evidenceId": "E-MISSION-004",
+          "path": "SOURCE-012",
+          "locator": "events#row-1861, events#row-1860"
+        },
+        {
+          "evidenceId": "E-MISSION-005",
+          "path": "SOURCE-014",
+          "locator": "lines 43-67"
+        },
+        {
+          "evidenceId": "E-MISSION-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-799, events#row-818, events#row-1973"
+        },
+        {
+          "evidenceId": "E-MISSION-007",
+          "path": "SOURCE-015",
+          "locator": "lines 69-87"
+        },
+        {
+          "evidenceId": "E-MISSION-008",
+          "path": "SOURCE-012",
+          "locator": "events#row-954, events#row-1137, events#row-1620"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with byte-level directive changes where copies exist, effective timestamps, and chronologically subsequent behavior. Judgement begins when a reviewer attributes revenue, delay, exploration quality, or failure to a policy change rather than merely reporting that the behavior followed it."
+    },
+    {
+      "id": "reliability",
+      "question": "What runtime, tool, platform-verifier, and service failures are independently countable, what recovery transitions followed them, and what observable wall-clock interval or abandoned work accompanied each failure class?",
+      "measurement": "Create separate failure classes for worker lifecycle exits, retained CLI fatal errors, platform-verifier failures, channel or HTTP failures, and service stop or restart events. Count lifecycle failures from event rows and count detailed error signatures only where retained metadata contains them. For attempts 176 through 205, report 30 consecutive failed attempt numbers and the interval from the first recorded failure to the next successful exit as an observed recovery interval, not as exclusively productive time lost. Record attempt 206's successful exit and the lifecycle-versus-payload attempt-label disagreement without normalizing it. For verifier failures, record retries and whether work was abandoned or remained reopened. State that rotated CLI logs prevent a complete error-cause census.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-RUNTIME-002",
+          "path": "SOURCE-012",
+          "locator": "events#row-394, events#row-340, events#row-1916, events#row-1526, events#row-1084"
+        },
+        {
+          "evidenceId": "E-RUNTIME-003",
+          "path": "SOURCE-012",
+          "locator": "events#row-66, events#row-987, events#row-744"
+        },
+        {
+          "evidenceId": "E-RUNTIME-015",
+          "path": "SOURCE-012",
+          "locator": "events#row-493, events#row-845 and attempt IDs 176-205"
+        },
+        {
+          "evidenceId": "E-RUNTIME-016",
+          "path": "SOURCE-022",
+          "locator": "lines 1-3, 30291, 30315, 41023, 55444"
+        },
+        {
+          "evidenceId": "E-RUNTIME-017",
+          "path": "SOURCE-012",
+          "locator": "events#row-482, events#row-459, events#row-740, events#row-317"
+        },
+        {
+          "evidenceId": "E-MISSION-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-799, events#row-818, events#row-1973"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with countable failures, retained error text, retries, recovery transitions, observed intervals, abandoned work, and coverage gaps. Judgement begins when a reviewer decides whether reliability was acceptable, assigns responsibility for an unattributed restart, or converts an observed failure interval into a monetary opportunity cost."
+    },
+    {
+      "id": "resource-and-token-efficiency",
+      "question": "What measured token consumption and wall-clock span belongs to each exported thread, and which evidenced outputs can be attributed to that thread without claiming complete compute or monetary cost coverage?",
+      "measurement": "For each of the three exported threads, report totalInputTokens, outputTokens, the thread's first and last projected message timestamps, and specifically attributable artifacts or outcomes. Use totalInputTokens as the inclusive input-consumption value; do not add cacheReadInputTokens or cacheCreationInputTokens to it, and never treat maxInputTokens as consumption. Report the three-thread totals separately from per-thread rows. Do not construct a per-progress-unit ratio unless an output has exclusive thread attribution and the same output unit is used across compared threads. Report nested helper calls, omitted messages, provider billing coverage, monetary model cost, human-help duration, and host-side full cost as unmeasured.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-SCOPE-010",
+          "path": "SOURCE-010",
+          "locator": "JSON pointers /method, /rows/0, /rows/1, /rows/2, /sum_input, /sum_output, /sum_cache_read"
+        },
+        {
+          "evidenceId": "E-RUNTIME-007",
+          "path": "SOURCE-016",
+          "locator": "messages seq=0 through seq=6450"
+        },
+        {
+          "evidenceId": "E-RUNTIME-008",
+          "path": "SOURCE-017",
+          "locator": "messages seq=0 through seq=609"
+        },
+        {
+          "evidenceId": "E-RUNTIME-009",
+          "path": "SOURCE-018",
+          "locator": "messages seq=0 through seq=444"
+        },
+        {
+          "evidenceId": "E-RUNTIME-010",
+          "path": "SOURCE-019",
+          "locator": "JSON pointers /threads/[private session identifier], /threads/[private session identifier], /threads/[private session identifier]"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with exported thread tokens, thread spans, attributable outputs, and explicit missing-cost coverage. Judgement begins when a reviewer assigns value to an output, calls the observed resource use efficient or wasteful, imputes unmeasured helper or billing cost, or compares unlike output units."
+    },
+    {
+      "id": "instruction-accumulation",
+      "question": "What mission or BRIEF instruction-growth events are preserved, what directives were added, removed, repeated, or contradicted, and what observable decisions occurred immediately before and after each effective change?",
+      "measurement": "Construct change points from the preserved mission versions and their effective events. For each change point, record line-range growth, exact directive additions or removals, repeated or contradictory instructions with both source locations, and the first comparable decisions before and after the change. Include BRIEF versions only when a preserved version or thread projection supports the claimed text at that time; do not infer historical BRIEF growth from the final BRIEF alone. Record behavioral change as temporal association. Do not label judgement as degraded solely because the mission became longer or because later outcomes differed.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-MISSION-001",
+          "path": "SOURCE-011",
+          "locator": "lines 1-29"
+        },
+        {
+          "evidenceId": "E-MISSION-003",
+          "path": "SOURCE-013",
+          "locator": "lines 30-41"
+        },
+        {
+          "evidenceId": "E-MISSION-005",
+          "path": "SOURCE-014",
+          "locator": "lines 43-67"
+        },
+        {
+          "evidenceId": "E-MISSION-007",
+          "path": "SOURCE-015",
+          "locator": "lines 69-87"
+        },
+        {
+          "evidenceId": "E-RUNTIME-007",
+          "path": "SOURCE-016",
+          "locator": "messages seq=0 through seq=6450"
+        },
+        {
+          "evidenceId": "E-FUNNEL-005",
+          "path": "SOURCE-028",
+          "locator": "lines 18-53"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with preserved text growth, exact repetitions or contradictions, effective times, and before-and-after behavior. Judgement begins when a reviewer infers that accumulated context caused degraded judgement, improved judgement, or a specific commercial outcome despite concurrent policy, market, and runtime changes."
+    },
+    {
+      "id": "reporting-integrity",
+      "question": "For a fixed final-state sample, did the dashboard and BRIEF claims agree with source events available at the same timestamp or immediately before it, and which claims could not be verified?",
+      "measurement": "Use the following fixed sample: the BRIEF financial-truth rows through 2026-09-22T15:08:30Z; the dashboard payment, wallet, and 30 work-record states at its source_as_of_utc; and the final event claim at 2026-09-22T15:12:25Z covering pending counts, acceptance, payment, gross, net, reinvestment, and spendable funds. Classify each sampled claim as matched, contradicted, or unverifiable against a distinct source row or record no later than the claim timestamp. Treat stale or unknown wallet checks and failed final mailbox or distribution reads as limitations, not as matches. Report the sample numerator and denominator; do not extrapolate the sample to every historical report because the dashboard lacks generated_at and totals fields and complete report-version history is absent.",
+      "evidenceLocators": [
+        {
+          "evidenceId": "E-FUNNEL-001",
+          "path": "SOURCE-025",
+          "locator": "JSON pointers /source_as_of_utc, /funds, /payments, /wallets"
+        },
+        {
+          "evidenceId": "E-FUNNEL-002",
+          "path": "SOURCE-025",
+          "locator": "JSON pointers /work/0 through /work/29"
+        },
+        {
+          "evidenceId": "E-FUNNEL-005",
+          "path": "SOURCE-028",
+          "locator": "lines 18-53"
+        },
+        {
+          "evidenceId": "E-FUNNEL-006",
+          "path": "SOURCE-012",
+          "locator": "events#row-89"
+        }
+      ],
+      "opinionBoundary": "Measurement ends with match, contradiction, and unverifiable classifications for the fixed sample and an explicit coverage denominator. Judgement begins when a reviewer generalizes that sample to the integrity of every historical report, treats an unverifiable claim as false, or excuses a contradiction because the overall narrative appeared reasonable."
+    }
+  ],
+  "unmeasurable": [
+    {
+      "id": "sector-selection",
+      "reason": "The snapshot does not contain a stable sector taxonomy, deduplicated opportunity denominators by sector, effort or entry-cost allocation by sector, or observed conversion rates by sector. The 56 hypothesis records in E-FUNNEL-003 mix routes, buyer types, platforms, and ideas and cannot be converted into comparable sector cohorts without inventing classifications. Therefore the evidence cannot determine whether agent bounty and gig marketplaces were the best available sector under the constraints."
+    },
+    {
+      "id": "search-diversity-vs-depth",
+      "reason": "Search results, inventories, probes, and repeat visits were not normalized into platform-probe records, and time spent per platform is not available. Counting distinct platform labels in the 30 dashboard work records from E-FUNNEL-002 would omit screened platforms that produced no work record and would substitute market-facing outputs for search breadth. The snapshot therefore cannot support a consistent breadth-versus-depth measurement."
+    },
+    {
+      "id": "opportunity-selection",
+      "reason": "The snapshot has a final hypothesis register and selected work records but no complete, normalized snapshot of all alternatives visible at each selection decision. Unique opportunities seen are explicitly not measurable, raw search inventories were not deduplicated, and much of workspace/.private is digest-only. A reviewer therefore cannot reconstruct the contemporaneous choice set needed to decide whether selected opportunities were the best visible options."
+    },
+    {
+      "id": "orbs-utility",
+      "reason": "E-SCOPE-010 and E-RUNTIME-007 through E-RUNTIME-009 support actual exported token totals, spans, and outputs for the root and two orb threads, but the same work was never rerun on the root thread under comparable conditions. Nested helper usage and full billing coverage are also missing. Without that counterfactual baseline, the snapshot cannot determine whether the orb descendants earned their cost relative to running the same work on the root."
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "version": "2",
+  "note": "Offline credential and address screening; not a guarantee of complete anonymization. Includes multiline JSON byte-array keys.",
+  "patterns": [
+    {
+      "id": "pem-private-key",
+      "class": "credential",
+      "flags": "",
+      "regex": "-----BEGIN [A-Z ]*PRIVATE KEY-----(?:\\\\n|[\\r\\n \\t])+[A-Za-z0-9+/=]{40,}",
+      "label": "PEM private key block"
+    },
+    {
+      "id": "secret-key-field",
+      "class": "credential",
+      "flags": "",
+      "regex": "\"(?:private_key|privateKey|secret_key|secretKey|secret_hex|seed_phrase|mnemonic|nsec)\"[ \\t]*:[ \\t]*\"[^\"]{8,}\"",
+      "label": "JSON secret-key field"
+    },
+    {
+      "id": "secret-key-array",
+      "class": "credential",
+      "flags": "",
+      "regex": "\"(?:private_key|privateKey|secret_key|secretKey|secret_hex|seed|seed_phrase|mnemonic|keypair)\"[ \\t]*:[ \\t\\r\\n]*\\[[ \\t\\r\\n]*[0-9]{1,3}(?:[ \\t\\r\\n]*,[ \\t\\r\\n]*[0-9]{1,3}){15,}",
+      "label": "Byte-array secret key"
+    },
+    {
+      "id": "session-token-field",
+      "class": "credential",
+      "flags": "",
+      "regex": "\"(?:token|access_token|accessToken|refresh_token|refreshToken|id_token|session_token|sessionToken|api_key|apiKey|apikey|client_secret|clientSecret)\"[ \\t]*:[ \\t]*\"[A-Za-z0-9._~+/=-]{16,}\"",
+      "label": "JSON session or API token field"
+    },
+    {
+      "id": "auth-bearer",
+      "class": "credential",
+      "flags": "i",
+      "regex": "authorization[\"']?[ \\t]*[:=][ \\t]*[\"']?[ \\t]*bearer[ \\t]+[A-Za-z0-9._~+/=-]{16,}",
+      "label": "Authorization bearer header"
+    },
+    {
+      "id": "bip32-xprv",
+      "class": "credential",
+      "flags": "",
+      "regex": "\\bxprv[0-9A-HJ-NP-Za-km-z]{50,}",
+      "label": "BIP32 extended private key"
+    },
+    {
+      "id": "nostr-nsec",
+      "class": "credential",
+      "flags": "",
+      "regex": "\\bnsec1[02-9ac-hj-np-z]{40,}",
+      "label": "Nostr secret key"
+    },
+    {
+      "id": "aws-access-key-id",
+      "class": "credential",
+      "flags": "",
+      "regex": "\\bAKIA[0-9A-Z]{16}\\b",
+      "label": "AWS access key id"
+    },
+    {
+      "id": "provider-api-key",
+      "class": "credential",
+      "flags": "",
+      "regex": "\\b(?:sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|gho_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}|xoxb-[A-Za-z0-9-]{20,}|AIza[0-9A-Za-z_-]{30,})",
+      "label": "Provider API key"
+    },
+    {
+      "id": "lightning-invoice",
+      "class": "credential",
+      "flags": "",
+      "regex": "\\b(?:lnbc|lntb)[0-9]{1,12}[munp]?1[02-9ac-hj-np-z]{40,}",
+      "label": "Lightning invoice"
+    },
+    {
+      "id": "subscription-issuer-id",
+      "class": "credential",
+      "flags": "i",
+      "regex": "(openai:chatgpt-codex|anthropic:claude-max):[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?::[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?",
+      "label": "Subscription issuer identifier"
+    },
+    {
+      "id": "email-address",
+      "class": "pii",
+      "flags": "",
+      "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(?!invalid\\b)[A-Za-z]{2,24}",
+      "label": "Email address",
+      "pseudonym": "PERSON",
+      "note": "Skips the RFC 2606 reserved .invalid TLD, which is where the redactor writes its own replacements (<pseudonym>@redacted.invalid). No real address can live there, and matching it made the detector flag its own output."
+    },
+    {
+      "id": "nostr-npub",
+      "class": "pii",
+      "flags": "",
+      "regex": "\\bnpub1[02-9ac-hj-np-z]{40,}",
+      "label": "Nostr public key",
+      "pseudonym": "NPUB"
+    },
+    {
+      "id": "btc-address",
+      "class": "pii",
+      "flags": "",
+      "regex": "\\b(?:bc1|tb1)[02-9ac-hj-np-z]{25,}",
+      "label": "Bitcoin address",
+      "pseudonym": "WALLET"
+    },
+    {
+      "id": "eth-address",
+      "class": "pii",
+      "flags": "",
+      "regex": "\\b0x[0-9a-fA-F]{40}\\b",
+      "label": "EVM address",
+      "pseudonym": "WALLET"
+    },
+    {
+      "id": "lightning-address",
+      "class": "pii",
+      "flags": "i",
+      "regex": "\\blnurl1[02-9ac-hj-np-z]{20,}",
+      "label": "LNURL payment address",
+      "pseudonym": "PAYADDR"
+    }
+  ]
+}
