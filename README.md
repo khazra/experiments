@@ -16,6 +16,7 @@ The postmortem includes three independently produced history reviews: Fable 5.1 
 ## Research and future designs
 
 - [Human and agent case studies](research/case-studies.md), including successes, failures and unverified claims across several kinds of work
+- [September 23 viability assessment](next-run/viability-assessment-2026-09-23.md): success-probability limits, economics, criticism, and a conditional case for another round; separate from the frozen postmortem
 - [Subscription-compatible tooling comparison](research/tooling-comparison.md)
 - [Proposed tests](next-run/plan.md), [sector-selection framework](next-run/sector-selection-framework.md), [future acceptance criteria](next-run/acceptance-criteria.md)
 - [Executed rubric and output schemas](pipeline/README.md)
